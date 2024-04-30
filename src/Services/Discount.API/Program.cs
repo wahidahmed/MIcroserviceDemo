@@ -1,8 +1,14 @@
+using Discount.API.Models;
 using Discount.API.Repository;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<AppDbContext>(
+                o => o.UseNpgsql(builder.Configuration.GetConnectionString("DiscountDb"))
+            );
 
 builder.Services.AddScoped<ICouponRepository,CouponRepository>();
 builder.Services.AddControllers();

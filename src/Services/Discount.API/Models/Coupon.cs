@@ -1,7 +1,13 @@
-﻿namespace Discount.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Discount.API.Models
 {
+    
     public class Coupon
     {
+        [Key,Required]
+       
         public int Id { get; set; } 
         public string ProductId { get; set; }
         public string ProductName { get; set; }
