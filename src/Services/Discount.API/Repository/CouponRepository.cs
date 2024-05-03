@@ -40,9 +40,23 @@ namespace Discount.API.Repository
           return await _appDbContext.Coupon.FirstOrDefaultAsync(x=>x.ProductId==productId);
         }
 
-        public Task<bool> UpdateCoupon(Coupon coupon)
+        public async Task<bool> UpdateCoupon(Coupon coupon)
         {
-            throw new NotImplementedException();
+            var data=await _appDbContext.Coupon.FindAsync(coupon.Id);
+            if (data!=null)
+            {
+                data.ProductName = coupon.ProductName;
+                data.ProductId = coupon.ProductId;
+                data.Amount = coupon.Amount;
+                data.Description = coupon.Description;  
+                _appDbContext.Coupon.Update(data);
+                await _appDbContext.SaveChangesAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         //public async Task<bool> DeleteCoupon(string productId)
