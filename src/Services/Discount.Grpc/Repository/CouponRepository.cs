@@ -37,7 +37,15 @@ namespace Discount.Grpc.Repository
 
         public async Task<Coupon> GetDiscount(string productId)
         {
-          return await _appDbContext.Coupon.FirstOrDefaultAsync(x=>x.ProductId==productId);
+            var coupon = await _appDbContext.Coupon.FirstOrDefaultAsync(x => x.ProductId == productId);
+            if(coupon == null) {
+                return new Coupon() { Description = "No Discount",Amount=0,ProductId="No discount",ProductName=string.Empty };
+            }
+            else
+            {
+                return coupon;
+            }
+         
         }
 
         public async Task<bool> UpdateCoupon(Coupon coupon)
