@@ -23,6 +23,8 @@ namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
         public async Task<bool> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
             var order = mapper.Map<Order>(request);
+            order.UpdatedBy = "1";
+            order.UpdatedDate = DateTime.Now; 
            return await orderRepository.UpdateAsync(order);
             
         }

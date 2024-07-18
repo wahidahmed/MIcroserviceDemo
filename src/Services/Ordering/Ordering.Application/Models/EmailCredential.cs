@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Ordering.Application.Models
 {
-    public class Email
+    public class EmailCredential
     {
-        public string To { get; set; }
-        public string Subject { get; set; }
-        public string Body { get; set; }
+        public static string EmailAddress = "wahidahmedjobdesk@gmail.com";
     }
 }

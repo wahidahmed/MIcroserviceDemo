@@ -22,14 +22,16 @@ namespace Ordering.Application.Features.Orders.Commands.CreateOrder
         public async Task<bool> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var order=mapper.Map<Order>(request);
+            order.CreatedBy = "1";
+            order.CreatedDate = DateTime.Now;  
           var isPLaced= await orderRepository.AddAsync(order);
             if (isPLaced)
             {
-                Email email=new();
+                EmailMessage email=new();
                 email.Subject = "order placed";
                 email.To = order.UserName;
                 email.Body = $"Dear {order.FirstName +" "+ order.LastName} <br/><br/> we have received your order and your order id is ${order.Id}";
-               await emailService.SendEmailAsync(email);
+               //await emailService.SendEmailAsync(email);
             }
 
             return isPLaced;
